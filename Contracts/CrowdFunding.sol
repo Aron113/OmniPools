@@ -19,6 +19,9 @@ contract Crowdfunding {
         uint256 deadline,
         uint256 goalAmount
     );
+    
+
+ 
 
     /** @dev Function to start a new project.
       * @param title Title of the project to be created
@@ -31,10 +34,12 @@ contract Crowdfunding {
         string calldata description,
         uint durationInDays,
         uint amountToRaise
-    ) external {
+    ) external payable{
         uint raiseUntil = block.timestamp.add(durationInDays.mul(1 days));
         Project newProject = new Project(payable(msg.sender), title, description, raiseUntil, amountToRaise);
         projects.push(newProject);
+        require(msg.value==amountToRaise/400);
+        require(amountToRaise>=3000000000000000000);
         emit ProjectStarted(
             address(newProject),
             payable(msg.sender),
@@ -43,8 +48,16 @@ contract Crowdfunding {
             raiseUntil,
             amountToRaise
         );
-    }                                                                                                                                   
+    }      
 
+    function Withdraw() public {
+        if (msg.sender== 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4){           //only Multisig can withdraw                                                                                                                  
+        payable(msg.sender).transfer(address(this).balance);}
+    }
+
+    function getBalance() public view returns(uint){
+        return address(this).balance;
+    }
     /** @dev Function to get all projects' contract addresses.
       * @return A list of all projects' contract addreses
       */
@@ -74,7 +87,8 @@ contract Project {
     string public description;
     State public state = State.Fundraising; // initialize on create
     mapping (address => uint) public contributions;
-
+    address  public multisig = payable(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4);
+    
     // Event that will be emitted whenever funding will be received
     event FundingReceived(address contributor, uint amount, uint currentTotal);
     // Event that will be emitted whenever the project starter has received the funds
@@ -99,6 +113,7 @@ contract Project {
         string memory projectDesc,
         uint fundRaisingDeadline,
         uint goalAmount
+        
     ) public {
         creator = projectStarter;
         title = projectTitle;
@@ -106,11 +121,12 @@ contract Project {
         amountGoal = goalAmount;
         raiseBy = fundRaisingDeadline;
         currentBalance = 0;
+        
     }
 
     /** @dev Function to fund a certain project.
       */
-    function contribute(uint fund) external inState(State.Fundraising) payable {
+    function contribute() external inState(State.Fundraising) payable {
        // require(msg.sender != creator);
         contributions[msg.sender] = contributions[msg.sender].add(msg.value);
         currentBalance = currentBalance.add(msg.value);
@@ -136,15 +152,12 @@ contract Project {
         uint256 totalRaised = currentBalance;
         currentBalance = 0;
 
-        if (creator.send(totalRaised)) {
+         (payable(multisig).send(totalRaised/100970875*100000000))
+       ; (creator.send(totalRaised/104)); {
             emit CreatorPaid(creator);
-            return true;
-        } else {
-            currentBalance = totalRaised;
-            state = State.Successful;
-        }
-
-        return false;
+            return true;}
+      
+       
     }
 
     /** @dev Function to retrieve donated amount when a project expires.
