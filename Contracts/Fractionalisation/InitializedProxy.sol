@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-/**
- * @title InitializedProxy
- * @author Anna Carroll
- */
 contract InitializedProxy {
     // address of logic contract
     address public immutable logic;
