@@ -9,7 +9,7 @@ Here, we aim to break down the barriers of entry to NFT investment by leveraging
 At the same time, OmniPools aims to curate a marketplace of high value NFTs through the use of a DAO incentive system. 
 
 ## Layout
-Here you can find our Smart Contracts and our Django-React webapp.
+Here you can find our Smart Contracts and our Django-React webapp (located in the master branch).
 Unfortunately, our Django-React webapp is still in its testing stages.
 
 Figma https://www.figma.com/file/dXl9QBdEPutM6JDHZ7D94O/Omnipools?node-id=0%3A1  
