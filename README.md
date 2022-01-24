@@ -12,8 +12,8 @@ At the same time, OmniPools aims to curate a marketplace of high value NFTs thro
 Here you can find our Smart Contracts and our Django-React webapp.
 Unfortunately, our Django-React webapp is still in its testing stages.
 
-Figma  
-Youtube
+Figma https://www.figma.com/file/dXl9QBdEPutM6JDHZ7D94O/Omnipools?node-id=0%3A1  
+Youtube https://youtu.be/Mo52RTS-AFY
 
 ## Team
 GRAZ [NUS Fintech Hackathon 2022]
