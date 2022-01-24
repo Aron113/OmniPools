@@ -12,7 +12,7 @@ At the same time, OmniPools aims to curate a marketplace of high value NFTs thro
 Here you can find our Smart Contracts and our Django-React webapp.
 Unfortunately, our Django-React webapp is still in its testing stages.
 
-Figma
+Figma  
 Youtube
 
 ## Team
