@@ -1,0 +1,39 @@
+{
+  "name": "omnipools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch ./hackathon/frontend/src/index.js --output-path ./hackathon/frontend/static/frontend",
+    "build": "webpack --mode production ./hackathon/frontend/src/index.js --output-path ./hackathon/frontend/static/frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.16.10",
+    "@babel/plugin-transform-runtime": "^7.16.10",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.7",
+    "@reduxjs/toolkit": "^1.7.1",
+    "babel-preset-env": "^1.7.0",
+    "csurf": "^1.11.0",
+    "ethers": "^5.5.3",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "regenerator-runtime": "^0.13.9"
+  }
+}
