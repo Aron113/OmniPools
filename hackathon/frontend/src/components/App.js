@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import Form from './data/Form'
-import Contract from './Contract'
 import Dashboard from './data/Dashboard';
+import Header from './layout/Header'
 
 
 class App extends Component {
@@ -10,8 +10,10 @@ class App extends Component {
     return (
       <Fragment>
         <div>
+          <Header/>
+        </div>
+        <div>
           <Dashboard/>
-          <Contract/>
         </div>
       </Fragment>
       

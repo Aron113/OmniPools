@@ -4,8 +4,9 @@ import { connect, useSelector } from 'react-redux';
 import { ethers } from 'ethers'
 import project_abi from '../project_abi.json'
 import getCookie from '../csrf'
-import { projectAddress  } from '../factoryMethods';
+import { projectAddress } from '../factoryMethods';
 import "regenerator-runtime/runtime.js";
+import { useDispatch } from 'react-redux';
 
 
 export class Form extends Component {
@@ -25,12 +26,15 @@ export class Form extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const Address = await this.getContractInformation(this.state.duration, this.state.price).then(data => console.log("form address" + data))
+        const Address = await this.getContractInformation(this.state.duration, this.state.price)
         this.setState({['address']: Address})
+        this.setState({['image']: URL.createObjectURL(this.state.image)})
         const { name, image, price, address, tokenId, description, duration } = this.state;
         const proposal  = { name, price, address, description, image }
         // this.updateDatabase(name , price, address, description, image) //Address remains undefined until trans approved undefined address updated in DB
+        console.log(address, 'THIS IS CURRENT ADDRESS')
         this.props.addProposal(proposal)
+        console.log('proposal added')
         this.setState({
             name:'', 
             image:'', 
@@ -45,36 +49,29 @@ export class Form extends Component {
     getContractInformation = async (Duration, Price) => {
 
             var time = 100;
-
             const initFields = this.props.data
             const factory = initFields.factory
             let tempProvider = new ethers.providers.Web3Provider(window.ethereum)
             let tempSigner = tempProvider.getSigner()
-            const Address = projectAddress(factory, initFields.project_abi, initFields.signer, this.state)
+            const Address = await Promise.resolve(projectAddress(factory, initFields.project_abi, initFields.signer, this.state)) // need to resolve promise as async function returns Promise
             console.log("getcontract info " + Address)
             return Address
 
     };
+
+    onImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            console.log(e.target.files, 'this is image')
+            let img = e.target.files[0]
+            this.setState({
+                ['image']: img
+            });
+        } else {
+            console.log('no image')
+        }
+    };
     
 
-    updateDatabase = (name, price, address, description, image) => {
-        fetch('/api/', {
-            method: 'POST', 
-            headers: {
-                'Accept': 'application/json', 
-                'Content-Type': 'application/json', 
-                'X-CSRFToken': this.csrf
-            }, 
-            body: JSON.stringify({
-                "name": name, 
-                "price": price, 
-                "contractAddress": address, 
-                "description": description,
-
-            })
-        }).then(data => console.log(data))
-    }
-    
     render() {
     return (
         <div>
@@ -86,7 +83,7 @@ export class Form extends Component {
                 </div>
                 <div>
                     <label>Image</label>
-                    <input type="url" name='image' placeholder="Enter Link to Image" onChange={this.onChange}/>
+                    <input type="file" name='image' accept="image/*" placeholder="Please input image" width={"250px"} onChange={this.onImageChange}/>
                 </div>
                 <div>
                     <label>Price</label>

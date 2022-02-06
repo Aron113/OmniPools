@@ -1,3 +1,4 @@
+
 module.exports = {
     module: {
         rules: [
@@ -8,6 +9,8 @@ module.exports = {
                     loader: "babel-loader"
                 }
             }
-        ]
-    }
+        ], 
+        
+    }, 
+
 }

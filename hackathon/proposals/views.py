@@ -18,3 +18,11 @@ class ProposalViewSet(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CurrProposalViewSet(APIView):
+    def get(self, request, adr, format=None):
+        proposal = Proposal.objects.get(address=adr)
+        print(proposal)
+        serializer = ProposalSerializer(proposal, many=False)
+        return Response(serializer.data)
+

@@ -1,7 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialStateValue = {
-    proposals: []
+    proposals: [], 
+    current: {
+        name: '', 
+        description: '', 
+        address: '', 
+        image: '', 
+        created_at: '', 
+        price: '', 
+
+    }
 }
 
 export const ProposalSlice = createSlice({
@@ -14,6 +23,10 @@ export const ProposalSlice = createSlice({
         
         updateProposals: (state, action) => {
             state.value.proposals = [...state.value.proposals, action.payload]
+        }, 
+
+        currentProposal: (state, action) => {
+            state.value.current = Object.assign({}, state.value.current, action.payload)
         }
         // addLead: (state, action) => {
         //     state.value.lead = [...state.value.lead, action.payload]
@@ -25,6 +38,6 @@ export const ProposalSlice = createSlice({
     }, 
 );
 
-export const { addProposal, updateProposals }  = ProposalSlice.actions;
+export const { addProposal, updateProposals, currentProposal }  = ProposalSlice.actions;
 
 export default ProposalSlice.reducer;

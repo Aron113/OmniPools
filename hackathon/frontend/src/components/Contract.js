@@ -4,87 +4,18 @@ import { connect } from 'react-redux';
 import { addFactory } from '../features/ContractReducer'
 import factory_abi from './factory_abi.json'         /////Import contract ABI
 import project_abi from './project_abi.json'
-
+import { FcApproval } from "react-icons/fc";
 
 
 
 const contractAddress="0x9D28CeDc95Fcab8C818D3D6017356BA3b2c7Aa76";
 
-// ////////State commands/////////
-//   	const [defaultAccount, setDefaultAccount] = useState(null);
-//   	const [connButtonText, setConnButtonText] = useState('Connect Wallet');
-//   	const [provider, setProvider] = useState(null);
-//   	const [signer, setSigner] = useState(null);
-//   	const [contract, setContract] = useState(null);
-
-
-
-
-
-// ////////////Connecting to User's account/////////////
-// const connectWalletHandler = () => {
-//   if (window.ethereum) {
-//     window.ethereum.request({method: 'eth_requestAccounts'})
-//     .then(result => {accountChangedHandler(result[0]);
-//     setConnButtonText('Wallet Connected');
-//   })
-
-//   ;
-//   console.log(defaultAccount)
-// }
-//   else {setErrorMessage('Install MetaMask');}
-
-
-// }
-
-// const accountChangedHandler = (newAccount) => {
-//   setDefaultAccount(newAccount);
-//   updateEthers();
-// }
-// /////////Getting an instance of the contract////////////
-// const updateEthers = () => {
-//   let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
-//   setProvider(tempProvider);
-
-//   let tempSigner = tempProvider.getSigner();
-//   setSigner(tempSigner);
-
-//   let tempContract = new ethers.Contract(contractAddress, SimpleStore_abi, tempSigner);
-//   setContract(tempContract);
-// }
-
-// //////////Function Mapping//////////////////////
-// // const heyo = async () => {
-// //   try{ let vale = await contract.get();
-// //     console.log(vale.toString());
-// //   setCurrentContractVal(vale.toString());
-// //  }
-
-// //   catch (error) { alert(
-// //         `Failed to load web3, accounts, or contract. Check console for details.`,); }
-
-// }
-
-
-// // const setHandler = (event) => {
-// // 		event.preventDefault();
-// // 		console.log('sending ' + event.target.setText.value + ' to the contract');
-// // 		contract.set(event.target.setText.value);
-// // 	}
-
-// ////////////////Front End///////////////////////
-//   return (
-//     <div>
-//       <h1>First ever dApp</h1>
-//       <button onClick={connectWalletHandler}>{connButtonText} </button>
-
-//     </div>
-//   );
-// }
-
-// export default Contract;
-
 export class Contract extends Component {
+  constructor (props) {
+    super(props)
+    this.connectWalletHandler()
+    console.log('connected')
+  }
 
   state = {
     defaultAccount: null, 
@@ -135,8 +66,7 @@ export class Contract extends Component {
       render() {
         return (
             <div>
-              <h1>First ever dApp</h1>
-              <button id='wallet-btn' onClick={this.connectWalletHandler}>unconnected</button>
+              {this.state.factory && <h2>Wallet connected!<FcApproval/></h2>}
             </div>
           );
       }

@@ -9,12 +9,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { applyMiddleware } from '@reduxjs/toolkit';
 import logger from 'redux-logger'
 import "regenerator-runtime/runtime.js";
+import componentReducer from './features/componentReducer'
 
 
 const store = configureStore({
     reducer: {
         proposals: proposalReducer, 
         factory: factoryReducer, 
+        component: componentReducer, 
     }, 
      middleware: (x) => x().concat(logger)
     
